@@ -1,0 +1,34 @@
+dimension:
+  id: D9
+  name: 文化质感
+  name_en: Cultural Texture
+  definition: 文化元素不是'贴皮'——文化质感 = 文化元素内化为叙事逻辑的一部分。
+sampling:
+  strategy: dispersed
+  chunk_size: 3000
+  num_chunks: 8
+scoring:
+  1-2:
+    label: 无文化质感/纯架空
+    characteristics:
+    - 世界是'默认奇幻'
+    - 文化元素是表面的
+  3-4:
+    label: 文化作为背景
+    characteristics:
+    - 有文化设定但不影响情节
+    - 文化元素是装饰性的
+  5-6:
+    label: 文化影响情节
+    characteristics:
+    - 文化设定影响角色行为和选择
+  7-8:
+    label: 文化内化为叙事逻辑
+    characteristics:
+    - 文化元素驱动冲突
+    - 世界观的文化层面与力量/政治体系交织
+  9-10:
+    label: 文化是叙事的骨架
+    characteristics:
+    - 删掉文化元素故事就不成立
+    - 文化元素本身产生叙事张力

@@ -1,0 +1,35 @@
+dimension:
+  id: D7
+  name: 展示艺术
+  name_en: Show Don't Tell
+  definition: '''Show, don''t tell''的本质：通过行动、对话、细节让读者自己得出结论，而不是通过旁白告诉读者应该得出什么结论。'
+sampling:
+  strategy: continuous
+  start_pct: 0.2
+  num_chapters: 5
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 纯旁白叙事
+    characteristics:
+    - 一切通过旁白解释
+    - 角色情感通过旁白标注而非行动展示
+  3-4:
+    label: 有展示但不一致
+    characteristics:
+    - 偶尔通过行动展示，但经常回退到旁白解释
+  5-6:
+    label: 展示为主，讲述为辅
+    characteristics:
+    - 大部分通过行动和对话展示
+    - 偶尔需要旁白解释复杂设定
+  7-8:
+    label: 展示精湛
+    characteristics:
+    - 对话揭示性格，行动展示情感，细节传达氛围
+    - 读者通过积累细节自己得出结论
+  9-10:
+    label: 展示即叙事
+    characteristics:
+    - 删掉所有旁白读者仍然能理解故事
+    - 每个细节都有叙事功能

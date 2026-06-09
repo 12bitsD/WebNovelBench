@@ -1,0 +1,38 @@
+dimension:
+  id: D5
+  name: 结构张力
+  name_en: Structure & Tension
+  definition: 故事的'好看'本质上是张力的管理——什么时候紧张，什么时候释放，什么时候反转。
+sampling:
+  strategy: continuous
+  start_pct: 0.3
+  num_chapters: 5
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 无张力/节奏平坦
+    characteristics:
+    - 故事是事件的线性排列
+    - 没有冲突升级
+    - 没有真正的代价
+  3-4:
+    label: 有基本张力但单调
+    characteristics:
+    - 有冲突但节奏单一
+    - 冲突是重复的
+  5-6:
+    label: 有合理节奏
+    characteristics:
+    - 高潮和缓冲有交替
+    - 冲突有基本升级
+    - 有至少一次'真正的代价'
+  7-8:
+    label: 多层次张力管理
+    characteristics:
+    - 章节级小波动+卷级中波动+全局大波动
+    - 冲突在多个维度升级
+  9-10:
+    label: 张力是叙事的核心引擎
+    characteristics:
+    - 张力曲线本身成为叙事的一部分
+    - 每个'释放'都是为了下一个更高的'紧张'

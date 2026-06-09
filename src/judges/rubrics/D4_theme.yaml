@@ -1,0 +1,38 @@
+dimension:
+  id: D4
+  name: 主题共振
+  name_en: Thematic Resonance
+  definition: '主题不是''故事告诉读者什么道理''——主题是''故事的结构本身在说什么''。
+
+    烂的主题表达：角色说教。
+
+    好的主题表达：结构即主题。'
+sampling:
+  strategy: key_nodes
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 无主题/纯娱乐
+    characteristics:
+    - 故事只有事件，没有意义层面
+  3-4:
+    label: 有简单主题但处理粗糙
+    characteristics:
+    - 善恶对立、正义必胜
+    - 主题通过角色嘴巴直接说出来
+  5-6:
+    label: 有主题且基本表达合理
+    characteristics:
+    - 有明确的控制思想
+    - 主题通过情节展示
+  7-8:
+    label: 主题深刻且表达自然
+    characteristics:
+    - 主题有多层含义
+    - 主题通过结构展示（不说教）
+    - 角色核心冲突与主题直接相关
+  9-10:
+    label: 主题与结构完美统一
+    characteristics:
+    - 删掉任何一部分主题都不完整
+    - 主题从第一页贯穿到结尾

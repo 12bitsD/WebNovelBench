@@ -1,0 +1,43 @@
+dimension:
+  id: D2
+  name: 角色弧光
+  name_en: Character Arc
+  definition: '角色弧光 = 角色从故事开始到结束的变化轨迹。
+
+    好的弧光不是''变强了''，而是''在压力下做出选择，选择导致不可逆的变化''。
+
+    关键判断：变化是''故事驱动''还是''作者强行''？'
+sampling:
+  strategy: key_nodes
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 扁平角色/工具人
+    characteristics:
+    - 角色从头到尾没有变化
+    - 角色没有独立动机
+    - 去掉名字无法区分不同角色
+  3-4:
+    label: 有变化但不自然
+    characteristics:
+    - 变化缺乏铺垫（'突然顿悟'）
+    - 变化是线性的
+    - 配角完全没有弧光
+  5-6:
+    label: 有合理弧光但深度一般
+    characteristics:
+    - 变化有事件驱动，有因果链
+    - 有基本的内心冲突
+    - 至少1-2个配角有独立弧光
+  7-8:
+    label: 弧光深刻且与主题耦合
+    characteristics:
+    - 角色核心冲突与故事主题直接相关
+    - 变化是渐进的、有层次的
+    - 多个主要角色有独立弧光
+  9-10:
+    label: 弧光是故事的核心驱动力
+    characteristics:
+    - 角色的变化就是故事本身
+    - 删掉角色弧光故事就不成立
+    - 读者能在角色身上看到自己

@@ -1,0 +1,44 @@
+dimension:
+  id: D3
+  name: 世界观构建
+  name_en: World Building
+  definition: '世界观不是''设定集''——它是一个''可能性空间''。
+
+    好的世界观：从少量基础规则推导出丰富的可能性。
+
+    烂的世界观：大量零散设定，互相不关联，随时可以打破。'
+sampling:
+  strategy: dispersed
+  chunk_size: 3000
+  num_chunks: 10
+scoring:
+  1-2:
+    label: 设定稀薄/随意
+    characteristics:
+    - 世界是'默认奇幻世界'
+    - 规则随时可以被打破
+    - 设定通过大段旁白解释
+  3-4:
+    label: 有基本设定但不成体系
+    characteristics:
+    - 有一些有趣设定但缺乏系统性
+    - 设定之间没有关联
+    - 存在Deus Ex Machina
+  5-6:
+    label: 有自洽的系统
+    characteristics:
+    - 核心规则清晰，始终被遵守
+    - 有基本的推导关系
+    - 设定通过行动展示
+  7-8:
+    label: 系统精密且有深度
+    characteristics:
+    - 多个系统相互关联
+    - 规则有'天花板'
+    - 限制和代价产生叙事张力
+  9-10:
+    label: 世界观是叙事的骨架
+    characteristics:
+    - 删掉世界观故事就不成立
+    - 规则的限制本身就是冲突来源
+    - 世界观通过行动和后果展示

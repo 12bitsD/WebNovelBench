@@ -1,0 +1,38 @@
+dimension:
+  id: D10
+  name: 爽点工艺
+  name_en: Satisfaction Craft
+  definition: '爽点 = 读者预期被满足或被超越的瞬间。
+
+    好的爽点：过程有创意，满足有层次。
+
+    烂的爽点：纯力量碾压，无过程。'
+sampling:
+  strategy: key_nodes
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 无爽点/纯力量展示
+    characteristics:
+    - 主角赢了但过程无聊
+    - 爽点是重复的
+  3-4:
+    label: 有爽点但套路化
+    characteristics:
+    - 爽点是'废柴逆袭'的模板
+    - 满足感单一
+  5-6:
+    label: 爽点有基本创意
+    characteristics:
+    - 赢的方式有策略性
+    - 满足感有层次
+  7-8:
+    label: 爽点精湛
+    characteristics:
+    - 赢的方式出乎意料但合理
+    - 满足感多层次
+  9-10:
+    label: 爽点是叙事的一部分
+    characteristics:
+    - 删掉爽点故事不完整
+    - 爽点深化了主题

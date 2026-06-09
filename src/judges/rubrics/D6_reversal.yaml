@@ -1,0 +1,33 @@
+dimension:
+  id: D6
+  name: 颠覆与反转
+  name_en: Reversal & Subversion
+  definition: 反转不是'意想不到'——反转 = 意料之外 + 情理之中 + 改变了理解。
+sampling:
+  strategy: key_nodes
+  chunk_size: 3000
+scoring:
+  1-2:
+    label: 无反转/完全可预测
+    characteristics:
+    - 读者从第一章就知道结局
+  3-4:
+    label: 有反转但依赖信息隐瞒
+    characteristics:
+    - 反转通过'隐藏信息'实现
+    - 回看时伏笔不够充分
+  5-6:
+    label: 反转有伏笔支撑
+    characteristics:
+    - 反转有伏笔，回看时能理解
+    - 但反转没有改变对整个故事的理解
+  7-8:
+    label: 反转改变了理解框架
+    characteristics:
+    - 反转迫使读者重新理解之前的内容
+    - 反转是整个视角的转变
+  9-10:
+    label: 反转是叙事的核心驱动力
+    characteristics:
+    - 反转本身就是故事的核心机制
+    - 每次反转都深化了主题
