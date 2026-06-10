@@ -43,6 +43,35 @@ class Pipeline:
         "D10": "D10_satisfaction.yaml",
     }
 
+    # 维度权重（总计1.0）
+    # 基于 vision.md 的设计：结构30% + 角色25% + 技艺25% + 灵魂20%
+    DIMENSION_WEIGHTS = {
+        "D1": 0.10,   # 信息流管理（结构）
+        "D2": 0.12,   # 角色弧光（角色）
+        "D3": 0.10,   # 世界观构建（结构）
+        "D4": 0.10,   # 主题共振（灵魂）
+        "D5": 0.08,   # 结构张力（结构）
+        "D6": 0.08,   # 颠覆与反转（技艺）
+        "D7": 0.07,   # 展示艺术（技艺）
+        "D8": 0.08,   # 冲突设计（技艺）
+        "D9": 0.07,   # 文化质感（灵魂）
+        "D10": 0.10,  # 爽点工艺（角色）
+    }
+
+    # 面层分类
+    LAYER_NAMES = {
+        "A": "结构工程",
+        "B": "角色生态",
+        "C": "叙事技艺",
+        "D": "灵魂深度",
+    }
+    DIMENSION_LAYERS = {
+        "D1": "A", "D3": "A", "D5": "A",
+        "D2": "B", "D10": "B",
+        "D6": "C", "D7": "C", "D8": "C",
+        "D4": "D", "D9": "D",
+    }
+
     def evaluate(
         self,
         text: str,
@@ -97,14 +126,29 @@ class Pipeline:
             results[dim_id] = result
             logger.info(f"{dim_id}: {result.score}/10 - {result.score_range}")
 
-        # 计算总分
-        if results:
-            overall = sum(r.score for r in results.values()) / len(results)
-        else:
-            overall = 0.0
+        # 计算加权总分
+        weighted_sum = 0.0
+        weight_sum = 0.0
+        for dim_id, result in results.items():
+            w = self.DIMENSION_WEIGHTS.get(dim_id, 0.1)
+            weighted_sum += result.score * w
+            weight_sum += w
+        overall = weighted_sum / weight_sum if weight_sum > 0 else 0.0
+
+        # 计算面层分数
+        layer_scores = {}
+        for dim_id, result in results.items():
+            layer = self.DIMENSION_LAYERS.get(dim_id, "A")
+            if layer not in layer_scores:
+                layer_scores[layer] = []
+            layer_scores[layer].append(result.score)
+        layer_averages = {
+            layer: sum(scores) / len(scores)
+            for layer, scores in layer_scores.items()
+        }
 
         # 生成摘要
-        summary = self._generate_summary(results, overall)
+        summary = self._generate_summary(results, overall, layer_averages)
 
         report = EvaluationReport(
             title=title,
@@ -141,10 +185,20 @@ class Pipeline:
         return judge.evaluate(samples)
 
     def _generate_summary(
-        self, results: Dict[str, DimensionResult], overall: float
+        self, results: Dict[str, DimensionResult], overall: float,
+        layer_averages: Optional[Dict[str, float]] = None,
     ) -> str:
         """生成评估摘要"""
         lines = [f"综合评分: {overall:.1f}/10\n"]
+
+        if layer_averages:
+            lines.append("面层评分:")
+            for layer, avg in sorted(layer_averages.items()):
+                layer_name = self.LAYER_NAMES.get(layer, layer)
+                bar = "█" * int(round(avg)) + "░" * (10 - int(round(avg)))
+                lines.append(f"  {layer_name}({layer}): {bar} {avg:.1f}/10")
+            lines.append("")
+
         lines.append("各维度评分:")
         for dim_id, result in sorted(results.items()):
             lines.append(f"  {result.dimension}: {result.score}/10")
@@ -164,7 +218,20 @@ class Pipeline:
             "timestamp": report.timestamp,
             "overall_score": report.overall_score,
             "summary": report.summary,
+            "layer_scores": {},
             "dimensions": {},
+        }
+
+        # 计算面层分数
+        layer_scores = {}
+        for dim_id, result in report.dimensions.items():
+            layer = Pipeline.DIMENSION_LAYERS.get(dim_id, "A")
+            if layer not in layer_scores:
+                layer_scores[layer] = []
+            layer_scores[layer].append(result.score)
+        report_data["layer_scores"] = {
+            Pipeline.LAYER_NAMES.get(layer, layer): round(sum(scores) / len(scores), 2)
+            for layer, scores in layer_scores.items()
         }
 
         for dim_id, result in report.dimensions.items():
